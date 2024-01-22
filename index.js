@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express'),
     morgan = require('morgan'),
     fs = require('fs'),
@@ -5,67 +6,90 @@ const express = require('express'),
 
 const app = express();
 
-let topMovies = [
+app.use(bodyParser.json());
+
+let users = [
+
+]
+
+let movies = [
     {
-        title: 'Just Go With It',
-        director: 'Dennis Dugan',
-        genre: ['Comedy', 'Romance']
+        "title": "Just Go With It",
+        "director": "Dennis Dugan",
+        "genre": "Romantic Comedy"
     },
 
     {
-        title: 'Bridesmaids',
-        director: 'Paul Feig',
-        genre: 'Comedy'
+        "title": "Bridesmaids",
+        "director": "Paul Feig",
+        "genre": "Comedy"
     },
 
     {
-        title: 'The Proposal',
-        director: 'Anna Fletcher',
-        genre: ['Comedy', 'Romance', 'Drama']
+        "title": "The Proposal",
+        "director": "Anna Fletcher",
+        "genre": "Romantic Comedy"
     },
 
     {
-        title: 'Set It Up',
-        director: 'Claire Scanlon',
-        genre: ['Comedy', 'Romance']
+        "title": "Set It Up",
+        "director": "Claire Scanlon",
+        "genre": "Romantic Comedy"
     },
 
     {
-        title: 'Forgetting Sarah Marshall',
-        director: 'Nicholas Stoller',
-        genre: ['Comedy', 'Romance', 'Drama']
+        "title": "Forgetting Sarah Marshall",
+        "director": "Nicholas Stoller",
+        "genre": "Romantic Comedy"
     },
 
     {
-        title: 'She\'s the Man',
-        director: 'Andy Fickman',
-        genre: ['Comedy', 'Romance', 'Sport']
+        "title": "She\'s the Man",
+        "director": "Andy Fickman",
+        "genre": "Romantic Comedy"
     },
 
     {
-        title: 'Top Gun\: Maverick',
-        director: 'Joseph Kosinski',
-        genre: ['Action', 'Drama']
+        "title": "Top Gun\: Maverick",
+        "director": "Joseph Kosinski",
+        "genre": "Action"
     },
 
     {
-        title: 'I Love You \, Man',
-        director: 'John Hamburg',
-        genre: ['Comedy', 'Romance']
+        "title": "I Love You\, Man",
+        "director": "John Hamburg",
+        "genre": "Comedy"
     },
 
     {
-        title: 'Spider-Man\: No Way Home',
-        director: 'Jon Watts',
-        genre: ['Action', 'Adventure', 'Fantasy']
+        "title": "Spider-Man\: No Way Home",
+        "director": "Jon Watts",
+        "genre": "Action"
     },
 
     {
-        title: 'Superbad',
-        director: 'Greg Mottola',
-        genre: 'Comedy'
+        "title": "Superbad",
+        "director": "Greg Mottola",
+        "genre": "Comedy"
     }
 ];
+
+// READ
+app.get('/movies', (req, res) => {
+    res.status(200).json(movies);
+})
+
+ READ
+app.get('/movies/:title', (req, res) => {
+   const { title } = req.params;
+   const movie = movies.find( movie => movie.Title === title );
+
+   if (movie) {
+    res.status(200).json(movie);
+   } else {
+    res.status(400).send('no such movie');
+   }
+});
 
 
 // setup the logger 
@@ -78,16 +102,16 @@ app.use(express.static('public'));
 
 // GET requests
 app.get('/', (req, res) => {
-    res.send('Welcome to myFlix app!');
-  });
+  res.send('Welcome to myFlix app!');
+ });
 
 app.get('/documentation.html', (req,res) => {
-    res.sendFile('public/documentation.html', {root: __dirname});
+  res.sendFile('public/documentation.html', {root: __dirname});
 });
 
-app.get('/movies', (req, res) => {
-    res.json(topMovies);
-  });
+//app.get('/movies', (req, res) => {
+  //  res.json(movies);
+ //});
   
 // error handling 
 app.use((err, req, res, next) => {
