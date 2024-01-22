@@ -14,63 +14,63 @@ let users = [
 
 let movies = [
     {
-        "title": "Just Go With It",
-        "director": "Dennis Dugan",
-        "genre": "Romantic Comedy"
+        "Title": "Just Go With It",
+        "Director": "Dennis Dugan",
+        "Genre": "Romantic Comedy"
     },
 
     {
-        "title": "Bridesmaids",
-        "director": "Paul Feig",
-        "genre": "Comedy"
+        "Title": "Bridesmaids",
+        "Director": "Paul Feig",
+        "Genre": "Comedy"
     },
 
     {
-        "title": "The Proposal",
-        "director": "Anna Fletcher",
-        "genre": "Romantic Comedy"
+        "Title": "The Proposal",
+        "Director": "Anna Fletcher",
+        "Genre": "Romantic Comedy"
     },
 
     {
-        "title": "Set It Up",
-        "director": "Claire Scanlon",
-        "genre": "Romantic Comedy"
+        "Title": "Set It Up",
+        "Director": "Claire Scanlon",
+        "Genre": "Romantic Comedy"
     },
 
     {
-        "title": "Forgetting Sarah Marshall",
-        "director": "Nicholas Stoller",
-        "genre": "Romantic Comedy"
+        "Title": "Forgetting Sarah Marshall",
+        "Director": "Nicholas Stoller",
+        "Genre": "Romantic Comedy"
     },
 
     {
-        "title": "She\'s the Man",
-        "director": "Andy Fickman",
-        "genre": "Romantic Comedy"
+        "Title": "She\'s the Man",
+        "Director": "Andy Fickman",
+        "Genre": "Romantic Comedy"
     },
 
     {
-        "title": "Top Gun\: Maverick",
-        "director": "Joseph Kosinski",
-        "genre": "Action"
+        "Title": "Top Gun\: Maverick",
+        "Director": "Joseph Kosinski",
+        "Genre": "Action"
     },
 
     {
-        "title": "I Love You\, Man",
-        "director": "John Hamburg",
-        "genre": "Comedy"
+        "Title": "I Love You\, Man",
+        "Director": "John Hamburg",
+        "Genre": "Comedy"
     },
 
     {
-        "title": "Spider-Man\: No Way Home",
-        "director": "Jon Watts",
-        "genre": "Action"
+        "Title": "Spider-Man\: No Way Home",
+        "Director": "Jon Watts",
+        "Genre": "Action"
     },
 
     {
-        "title": "Superbad",
-        "director": "Greg Mottola",
-        "genre": "Comedy"
+        "Title": "Superbad",
+        "Director": "Greg Mottola",
+        "Genre": "Comedy"
     }
 ];
 
@@ -79,7 +79,7 @@ app.get('/movies', (req, res) => {
     res.status(200).json(movies);
 })
 
- READ
+// READ
 app.get('/movies/:title', (req, res) => {
    const { title } = req.params;
    const movie = movies.find( movie => movie.Title === title );
@@ -89,7 +89,7 @@ app.get('/movies/:title', (req, res) => {
    } else {
     res.status(400).send('no such movie');
    }
-});
+})
 
 
 // setup the logger 
