@@ -94,7 +94,7 @@ let movies = [
     {
         "Title": "Top Gun: Maverick",
         "Description": "After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past when he leads TOP GUN's elite graduates on a mission that demands the ultimate sacrifice from those chosen to fly it. (imdb.com)",
-        "Genre": "Action"
+        "Genre": "Action",
         "Director": {
             "Name": "Joseph Kosinski",
             "Bio": "Joseph Kosinski is a director whose uncompromising style has quickly made a mark in the filmmaking zeitgeist. His four theatrical releases have grossed $2.2 billion worldwide and been nominated for 7 Academy Awards and 2 Grammys. Joseph received his undergraduate degree in Mechanical Engineering at Stanford University and a Masters in Architecture from Columbia University. (imdb.com)",
