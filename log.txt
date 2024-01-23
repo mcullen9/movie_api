@@ -25,3 +25,4 @@
 ::1 - - [22/Jan/2024:22:59:33 +0000] "GET /movies HTTP/1.1" 200 844 "-" "PostmanRuntime/7.36.1"
 ::1 - - [23/Jan/2024:00:17:19 +0000] "GET / HTTP/1.1" 200 22 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 ::1 - - [23/Jan/2024:00:55:37 +0000] "GET /movies/genre/Comedy HTTP/1.1" 404 158 "-" "PostmanRuntime/7.36.1"
+::1 - - [23/Jan/2024:03:04:11 +0000] "PUT /users/1 HTTP/1.1" 404 146 "-" "PostmanRuntime/7.36.1"
