@@ -57,8 +57,8 @@ let movies = [
             "Bio":"Paul Feig is an American film director and writer who is known for creating Freaks and Geeks and directing Bridesmaids, The Heat, Spy and A Simple Favor. He is known for directing films starring frequent collaborator Melissa McCarthy. He also directed the highly controversial 2016 reboot of Ghostbusters. He also directed episodes of The Office. (imdb.com)",
             "Birth":"1962"
         },
-        "ImageURL":"",
-        "Featured":""
+        "ImageURL":"https://picfiles.alphacoders.com/774/thumb-1920-77421.jpg",
+        "Featured": true
     },
 
     {
