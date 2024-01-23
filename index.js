@@ -9,6 +9,21 @@ const app = express();
 app.use(bodyParser.json());
 
 let users = [
+    {
+        id: 1,
+        name: "Jack",
+        favoriteMovies: []
+    },
+    {
+        id: 2,
+        name: "Susan",
+        favoriteMovies: ["Bridesmaids"]
+    },
+    {
+        id: 3,
+        name: "John",
+        favoriteMovies: ["Top Gun: Maverick"]
+    }
 
 ]
 
