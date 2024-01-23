@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Documentation</title>
+    <style>
+      * {
+        margin: 2rem;
+      }
+      table, th, td {
+        border: 1px solid;
+      }
+    </style>
   </head>
   <body>
     <h1>Movie API</h1>
@@ -54,8 +62,8 @@
           </td>
         </tr>
         <tr>
-          <td>Return data about a genre including name and description</td>
-          <td>/movies/genre/[genreTitle]</td>
+          <td>Return data about a genre by name</td>
+          <td>/movies/genre/[genreName]</td>
           <td>GET</td>
           <td>None</td>
           <td>A JSON object holding data about a genre containing title and description. Example:
@@ -68,11 +76,11 @@
           </td>
         </tr>
         <tr>
-          <td>Return data about a director including name, bio, and birth year</td>
+          <td>Return data about a director by name</td>
           <td>/movies/directors/[directorName]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a director containing name, bio, and birth year. Example:
+          <td>A JSON object holding data about a director containing director's name, bio, and birth year. Example:
             <code>
               {
                 "Name": "Greg Mottola",
@@ -86,18 +94,27 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td>POST</td>
-          <td>A JSON object holding space for user's name and favorite movies. Example:
+          <td>A JSON object holding data about the user to add, structured like:
             <code>
+              <!--Haven't yet added username, password, email, birthday variables to index.js, put them here for the example-->
               {
-                "name":" ",
-                "favoriteMovies":[]
+                Name: String,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date,
+                Movies: []
             }
             </code>
           </td>
-          <td>A JSON object holding user's name, favorite movies, and auto-generated id. Example:
+          <td>A JSON object holding data about the user that was added, as well as an auto-generated id. Example:
             <code>
               {
                 "name": "Mary",
+                "username": "mary123",
+                "password": "1234",
+                "email": "mary@gmail.com",
+                "birthday": "1/2/2003",
                 "favoriteMovies": [],
                 "id": "ae7c77d6-ae01-498b-9603-11bf345192ce"
             }
@@ -108,7 +125,7 @@
           <td>Allow users to update their user information</td>
           <td>/users/[id]</td>
           <td>PUT</td>
-          <td>A JSON object holding space for user to update name and/or favorite movie. Example:
+          <td>A JSON object data about the user which needs to be updated, structured like:
             <code>
               {
                 "name":"Susan",
@@ -127,10 +144,11 @@
           </td>
         </tr>
         <tr>
-          <td>Allow new users to add a movie to their list of favorite movies</td>
+          <td>Allow existing users to add a movie to their list of favorites</td>
           <td>/users/[id]/[movieTitle]</td>
           <td>POST</td>
-          <td>A JSON object holding space for user's name and new favorite movie/movies. Example:
+          <td>None</td>
+          <td>A JSON object holding data about updated user information. Example:
             <code>
               {
                 "name":"Jack",
@@ -140,14 +158,12 @@
             }
             </code>
           </td>
-          <td>A text-based message stating that the movie has been added to the user's array. Example: Superbad has been added to user 1's array.
-          </td>
         </tr>
         <tr>
-          <td>Allow existing users to remove a movie to their list of favorite movies</td>
+          <td>Allow existing users to remove a movie from their list of favorites</td>
           <td>/users/[id]/[movieTitle]</td>
           <td>DELETE</td>
-          <td>A JSON object holding space for user's name and new favorite movie/movies. Example:
+          <td>A JSON object holding data about user's information to be deleted. Example:
             <code>
               {
                 "name":"Susan",
@@ -164,13 +180,7 @@
           <td>Allow existing users to unregister</td>
           <td>/users/[id]</td>
           <td>DELETE</td>
-          <td>A JSON object holding space for user's id number. Example:
-            <code>
-              {
-                "id": 2
-            }
-            </code>
-          </td>
+          <td>None</td>
           <td>A text-based message stating that the user has been deleted. Example: User 2 has been deleted.
           </td>
         </tr>
