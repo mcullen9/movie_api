@@ -2,8 +2,8 @@ const bodyParser = require('body-parser');
 const express = require('express'),
     morgan = require('morgan'),
     fs = require('fs'),
-    uuid = require ('uuid');
- //   path = require('path');
+    uuid = require ('uuid'),
+    path = require('path');
 
 const app = express();
 
