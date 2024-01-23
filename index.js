@@ -203,6 +203,19 @@ app.get('/movies/genre/:genreName', (req, res) => {
     }
  })
 
+ // READ
+app.get('/movies/directors/:directorName', (req, res) => {
+    const { directorName } = req.params;
+    const director = movies.find( movie => movie.Director.Name === directorName ).Director;
+ 
+    if (director) {
+     res.status(200).json(director);
+    } else {
+     res.status(400).send('no such director');
+    }
+ })
+
+
 // setup the logger 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 // enable morgan logging to ‘log.txt’ 
