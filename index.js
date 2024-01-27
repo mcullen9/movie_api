@@ -72,7 +72,7 @@ app.get('/movies/:Title', (req, res) => {
 
  // GET JSON genre info when looking for specific genre
  // READ
-app.get('/movies/genres/:genreName', (req, res) => {
+app.get('/movies/genre/:genreName', (req, res) => {
     Movies.findOne({ "Genre.Name" : req.params.genreName })
         .then((movies) => {
             res.json(movies);
