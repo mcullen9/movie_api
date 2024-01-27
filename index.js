@@ -11,8 +11,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+//const Genres = Models.Genre;
+//const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
    
@@ -72,7 +72,7 @@ app.get('/movies/:Title', (req, res) => {
 
  // GET JSON genre info when looking for specific genre
  // READ
-app.get('/genre/:Name', (req, res) => {
+app.get('/movies/genre/:Name', (req, res) => {
     Genres.findOne({ Name: req.params.Name })
         .then((genre) => {
             res.json(genre.Description);
@@ -85,7 +85,7 @@ app.get('/genre/:Name', (req, res) => {
 
 // GET info on director when looking for specific director
 // READ
-app.get('/director/:Name', (req, res) => {
+app.get('/movies/director/:Name', (req, res) => {
     Directors.findOne({ Name: req.params.Name })
         .then((director) => {
             res.json(director);
