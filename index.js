@@ -14,8 +14,8 @@ const express = require('express'),
     path = require('path');
 
 const app = express();
-
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let users = [
     {
