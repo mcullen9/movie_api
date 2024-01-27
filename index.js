@@ -11,14 +11,14 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+//const Genres = Models.Genre;
+//const Directors = Models.Director;
 
 mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
    
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // setup the logger 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
@@ -72,10 +72,10 @@ app.get('/movies/:Title', (req, res) => {
 
  // GET JSON genre info when looking for specific genre
  // READ
-app.get('/movies/genre/:Name', (req, res) => {
-    Genres.findOne({ Name: req.params.Name })
-        .then((genre) => {
-            res.json(genre.Description);
+app.get('/movies/genres/:genreName', (req, res) => {
+    Movies.findOne({ "Genre.Name" : req.params.genreName })
+        .then((movies) => {
+            res.json(movies);
         })
         .catch((err) => {
             console.error(err);
@@ -85,10 +85,10 @@ app.get('/movies/genre/:Name', (req, res) => {
 
 // GET info on director when looking for specific director
 // READ
-app.get('/movies/director/:Name', (req, res) => {
-    Directors.findOne({ Name: req.params.Name })
-        .then((director) => {
-            res.json(director);
+app.get('/movies/directors/:directorName', (req, res) => {
+    Movies.findOne({ "Director.Name" : req.params.directorName })
+        .then((movies) => {
+            res.json(movies);
         })
         .catch((err) => {
             res.status(500).send('Error: ' + err);
@@ -191,7 +191,7 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 
   // Remove a movie from a user's list of favorites
 app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, {
+    await Users.findOneAndRemove({ Username: req.params.Username }, {
        $pull: { FavoriteMovies: req.params.MovieID }
      },
      { new: true }) 
@@ -224,10 +224,11 @@ app.get('/documentation.html', (req,res) => {
   res.sendFile('public/documentation.html', {root: __dirname});
 });
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-  });
+//Error handling middleware
+//app.use((err, req, res, next) => {
+  //  console.error(err.stack);
+  //  res.status(500).send('Something broke!');
+ // });
   
 // listen for requests
 
