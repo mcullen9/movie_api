@@ -278,6 +278,21 @@ app.put('/users/:Username', async (req, res) => {
   
   });
 
+// Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, {
+       $push: { FavoriteMovies: req.params.MovieID }
+     },
+     { new: true }) // This line makes sure that the updated document is returned
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(‘Error: ’ + err);
+    });
+  });
+  
 // CREATE
 app.post('/users/:id/:movieTitle', (req, res) => {
     const { id, movieTitle } = req.params;
