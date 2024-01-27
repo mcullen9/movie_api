@@ -247,20 +247,36 @@ app.get('/users/:Username', async (req, res) => {
       });
   });
 
-// UPDATE
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;
-    const updatedUser = req.body;
-
-   let user = users.find( user => user.id == id);
-
-   if (user) {
-    user.name = updatedUser.name;
-    res.status(200).json(user);
-   } else {
-    res.status(400).send('no such user')
-   }
-})
+// Update a user's info, by username
+/* We’ll expect JSON in this format
+{
+  Username: String,
+  (required)
+  Password: String,
+  (required)
+  Email: String,
+  (required)
+  Birthday: Date
+}*/
+app.put('/users/:Username', async (req, res) => {
+    await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+      {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true }) // This line makes sure that the updated document is returned
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(‘Error: ’ + err);
+    })
+  
+  });
 
 // CREATE
 app.post('/users/:id/:movieTitle', (req, res) => {
