@@ -36,8 +36,8 @@ app.get('/', (req, res) => {
 
 // Return JSON object when at /movies
 // READ
-app.get('/movies', (req, res) => {
-    Movies.find()
+app.get('/movies', async (req, res) => {
+    await Movies.find()
         .then((movies) => {
         res.status(201).json(movies);
         })
@@ -47,8 +47,8 @@ app.get('/movies', (req, res) => {
         });
 });
 // Return JSON object when at /users
-app.get('/users', (req,res) => {
-    Users.find()
+app.get('/users', async (req,res) => {
+    await Users.find()
         .then((users) => {
             res.status(201).json(users);
         })
@@ -59,8 +59,8 @@ app.get('/users', (req,res) => {
 
 // GET JSON movie info when looking for specific title
 // READ
-app.get('/movies/:Title', (req, res) => {
-    Movies.findOne({ Title: req.params.Title })
+app.get('/movies/:Title', async (req, res) => {
+    await Movies.findOne({ Title: req.params.Title })
         .then((movie) => {
             res.json(movie);
         })
@@ -72,10 +72,10 @@ app.get('/movies/:Title', (req, res) => {
 
  // GET JSON genre info when looking for specific genre
  // READ
-app.get('/movies/genre/:genreName', (req, res) => {
-    Movies.findOne({ "Genre.Name" : req.params.genreName })
-        .then((genre) => {
-            res.json(genre);
+app.get('/movies/genres/:genreName', async (req, res) => {
+    await Movies.findOne({ 'Genre.Name': req.params.genreName })
+        .then((movies) => {
+            res.json(movies);
         })
         .catch((err) => {
             console.error(err);
@@ -85,8 +85,8 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 // GET info on director when looking for specific director
 // READ
-app.get('/movies/directors/:directorName', (req, res) => {
-    Movies.findOne({ "Director.Name" : req.params.directorName })
+app.get('/movies/directors/:directorName', async (req, res) => {
+    await Movies.findOne({ 'Director.Name': req.params.directorName })
         .then((movies) => {
             res.json(movies);
         })
@@ -110,8 +110,7 @@ app.post('/users', async (req, res) => {
         if (user) {
           return res.status(400).send(req.body.Username + 'already exists');
         } else {
-          Users
-            .create({
+          Users.create({
               Username: req.body.Username,
               Password: req.body.Password,
               Email: req.body.Email,
@@ -155,13 +154,14 @@ app.get('/users/:Username', async (req, res) => {
   Birthday: Date
 }*/
 app.put('/users/:Username', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-      {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-      }
+    await Users.findOneAndUpdate({ Username: req.params.Username }, 
+        { $set:
+            {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+            }
     },
     { new: true }) 
     .then((updatedUser) => {
@@ -176,8 +176,8 @@ app.put('/users/:Username', async (req, res) => {
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', async (req, res) => {
-    await Users.findOneAndUpdate({ Username: req.params.Username }, {
-       $push: { FavoriteMovies: req.params.MovieID }
+    await Users.findOneAndUpdate({ Username: req.params.Username }, 
+        { $push: { FavoriteMovies: req.params.MovieID }
      },
      { new: true }) 
     .then((updatedUser) => {
@@ -225,10 +225,10 @@ app.get('/documentation.html', (req,res) => {
 });
 
 //Error handling middleware
-//app.use((err, req, res, next) => {
-  //  console.error(err.stack);
-  //  res.status(500).send('Something broke!');
- // });
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
   
 // listen for requests
 

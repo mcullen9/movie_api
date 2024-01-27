@@ -69,3 +69,6 @@
 ::1 - - [27/Jan/2024:09:16:37 +0000] "GET /movies/genre/Action HTTP/1.1" 500 16 "-" "PostmanRuntime/7.36.1"
 ::1 - - [27/Jan/2024:09:16:44 +0000] "GET /movies/genres/Action HTTP/1.1" 404 159 "-" "PostmanRuntime/7.36.1"
 ::1 - - [27/Jan/2024:09:16:49 +0000] "GET /movies HTTP/1.1" 201 6535 "-" "PostmanRuntime/7.36.1"
+::1 - - [27/Jan/2024:09:18:30 +0000] "GET /movies/genre/Action HTTP/1.1" 500 16 "-" "PostmanRuntime/7.36.1"
+::1 - - [27/Jan/2024:09:18:35 +0000] "GET /movies/genre/action HTTP/1.1" 500 16 "-" "PostmanRuntime/7.36.1"
+::1 - - [27/Jan/2024:09:18:40 +0000] "GET /movies HTTP/1.1" 201 6535 "-" "PostmanRuntime/7.36.1"
