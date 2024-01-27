@@ -1,21 +1,61 @@
+const express = require('express'),
+    bodyParser = require('body-parser'),
+    uuid = require ('uuid');
+
+const morgan = require('morgan'),
+    fs = require('fs'),
+    path = require('path');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
-mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const bodyParser = require('body-parser');
-const express = require('express'),
-    morgan = require('morgan'),
-    fs = require('fs'),
-    uuid = require ('uuid'),
-    path = require('path');
-
+mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
+   
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// setup the logger 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+// enable morgan logging to ‘log.txt’ 
+app.use(morgan('combined', {stream: accessLogStream}));
+
+// setup app routing
+app.use(express.static('public'));
+
+
+// Default text response when at /
+app.get('/', (req, res) => {
+    res.send('Welcome to myFlix app!');
+   });
+
+// Return JSON object when at /movies
+// READ
+app.get('/movies', (req, res) => {
+    Movies.find()
+        .then((movies) => {
+        res.status(201).json(movies);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+});
+// Return JSON object when at /users
+app.get('/users', (req,res) => {
+    Users.find()
+        .then((users) => {
+            res.status(201).json(users);
+        })
+        .catch((err) => {
+            res.status(500).send('Error:' + err);
+        });
+});
 
 let users = [
     {
@@ -308,6 +348,22 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
     });
   });
 
+// DELETE a user by username
+app.delete('/users/:Username', async (req, res) => {
+    await Users.findOneAndRemove({ Username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(400).send(req.params.Username + ' was not found');
+        } else {
+          res.status(200).send(req.params.Username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
+
 // CREATE
 app.post('/users/:id/:movieTitle', (req, res) => {
     const { id, movieTitle } = req.params;
@@ -320,26 +376,6 @@ app.post('/users/:id/:movieTitle', (req, res) => {
    } else {
     res.status(400).send('no such user')
    }
-})
-
-// DELETE
-app.delete('/users/:id', (req, res) => {
-    const { id } = req.params;
-   
-   let user = users.find( user => user.id == id);
-
-   if (user) {
-    users = users.filter( user => user.id != id);
-    res.status(200).send(`user ${id} has been deleted`);
-   } else {
-    res.status(400).send('no such user')
-   }
-})
-
-
-// READ
-app.get('/movies', (req, res) => {
-    res.status(200).json(movies);
 })
 
 // READ
@@ -378,19 +414,6 @@ app.get('/movies/directors/:directorName', (req, res) => {
     }
  })
 
-
-// setup the logger 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
-// enable morgan logging to ‘log.txt’ 
-app.use(morgan('combined', {stream: accessLogStream}));
-
-// setup app routing
-app.use(express.static('public'));
-
-// GET requests
-app.get('/', (req, res) => {
-  res.send('Welcome to myFlix app!');
- });
 
 app.get('/documentation.html', (req,res) => {
   res.sendFile('public/documentation.html', {root: __dirname});
