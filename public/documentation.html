@@ -65,7 +65,7 @@
         </tr>
         <tr>
           <td>Return data about a genre by name</td>
-          <td>/genre/[Name]</td>
+          <td>/movies/genres/[genreName]</td>
           <td>GET</td>
           <td>None</td>
           <td>A JSON object holding data about a genre containing title and description. Example:
@@ -79,7 +79,7 @@
         </tr>
         <tr>
           <td>Return data about a director by name</td>
-          <td>/director/[Name]</td>
+          <td>/movies/directors/[directorName]</td>
           <td>GET</td>
           <td>None</td>
           <td>A JSON object holding data about a director containing director's name, bio, and birth year. Example:
@@ -111,8 +111,6 @@
               {
                 "id": "ae7c77d6-ae01-498b-9603-11bf345192ce",
                 "email": "mary@gmail.com",
-                "firstName": "Mary",
-                "lastName": "Johnson",
                 "username": "mary123",
                 "password": "1234",
                 "birthday": "1/2/2003",
@@ -128,7 +126,7 @@
           <td>A JSON object data about the user which needs to be updated, structured like:
             <code>
               {
-                "name":"Susan",
+                "Username":"Susan123",
                 "favoriteMovies":[]
             }
             </code>
@@ -136,7 +134,7 @@
           <td>A JSON object containing a user's id and updated information or a text-based message denying that information was updated. Example:
             {
               "id": 2,
-              "name": "Susan Updated Name",
+              "Username": "Susan123",
               "favoriteMovies": [
                   "Bridesmaids"
               ]
@@ -151,7 +149,7 @@
           <td>A JSON object holding data about updated user information. Example:
             <code>
               {
-                "name":"Jack",
+                "Username":"Jack123",
                 "favoriteMovies":[
                   "Superbad"
                 ]
@@ -166,7 +164,7 @@
           <td>A JSON object holding data about user's information to be deleted. Example:
             <code>
               {
-                "name":"Susan",
+                "Username":"Susan123",
                 "favoriteMovies":[
                   "Bridesmaids"
                 ]
