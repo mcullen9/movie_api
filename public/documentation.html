@@ -46,19 +46,19 @@
           <td>A JSON object holding data about a single movie, containing title, description, genre, director, image URL, and whether it's featured or not. Example:
             <code>
               {
-                "Title":"Bridesmaids",
-                "Description":"Competition between the maid of honor and a bridesmaid, over who is the bride's best friend, threatens to upend the life of an out-of-work pastry chef. (imdb.com)",
-                "Genre": {
-                    "Name":"Comedy",
-                    "Description":"A comedy film is a category of film that emphasizes humor. These films are designed to amuse audiences and make them laugh. Films in this genre typically have a happy ending, with dark comedy being an exception to this rule."
-                 },
-                "Director": {
-                    "Name":"Paul Feig",
-                    "Bio":"Paul Feig is an American film director and writer who is known for creating Freaks and Geeks and directing Bridesmaids, The Heat, Spy and A Simple Favor. He is known for directing films starring frequent collaborator Melissa McCarthy. He also directed the highly controversial 2016 reboot of Ghostbusters. He also directed episodes of The Office. (imdb.com)"
+                Title: {type: String, required: true},
+                Description: {type: String, required: true},
+                Genre: {
+                  Name: String,
+                  Description: String
                 },
-                "Actors": [],
-                "ImageURL":"https://picfiles.alphacoders.com/774/thumb-1920-77421.jpg",
-                "Featured": true
+                Director: {
+                  Name: String,
+                  Bio: String
+                },
+                Actors: [String],
+                ImagePath: String,
+                Featured: Boolean
               }
             </code>
           </td>
@@ -87,7 +87,7 @@
               {
                 "Name": "Greg Mottola",
                 "Bio": "Greg Mottola was born on 11 July 1964 in Dix Hills, Long Island, New York, USA. He is a producer and director, known for Adventureland (2009), The Daytrippers (1996) and Superbad (2007). He is married to Sarah Allentuch. They have three children. (imdb.com)",
-                "Birth": 1964
+                "BirthYear": 1964
             }
             </code>
           </td>
@@ -99,22 +99,23 @@
           <td>A JSON object holding data about the user to add, structured like:
             <code>
               {
-                Username: String,
-                Password: String,
-                Email: String,
-                Birthday: Date
+                Username: {type: String, required: true},
+                Password: {type: String, required: true},
+                Email: {type: String, required: true},
+                Birthday: Date,
+                FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
             }
             </code>
           </td>
           <td>A JSON object holding data about the user that was added, as well as an auto-generated id. Example:
             <code>
               {
-                "id": "ae7c77d6-ae01-498b-9603-11bf345192ce",
-                "email": "mary@gmail.com",
-                "username": "mary123",
-                "password": "1234",
-                "birthday": "1/2/2003",
-                "favoriteMovies": []
+                "id": 1,
+              "Username": "testuser",
+              "Password": "testpassword",
+              "Email": "test@email.com",
+              "Birthday": Date,
+              "favoriteMovies": []
             }
             </code>
           </td>
@@ -126,18 +127,22 @@
           <td>A JSON object data about the user which needs to be updated, structured like:
             <code>
               {
-                "Username":"Susan123",
-                "favoriteMovies":[]
+                Username: {type: String, required: true},
+                Password: {type: String, required: true},
+                Email: {type: String, required: true},
+                Birthday: Date,
+                FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
             }
             </code>
           </td>
           <td>A JSON object containing a user's id and updated information or a text-based message denying that information was updated. Example:
             {
               "id": 2,
-              "Username": "Susan123",
-              "favoriteMovies": [
-                  "Bridesmaids"
-              ]
+              "Username": "testuser",
+              "Password": "testpassword",
+              "Email": "test@email.com",
+              "Birthday": Date,
+              "favoriteMovies": []
           }
           </td>
         </tr>
@@ -150,9 +155,7 @@
             <code>
               {
                 "Username":"Jack123",
-                "favoriteMovies":[
-                  "Superbad"
-                ]
+                "favoriteMovies":[]
             }
             </code>
           </td>
