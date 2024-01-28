@@ -205,13 +205,13 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
   });
 
 // DELETE a user by username, allow user to deregister
-app.delete('/users/:userName', async (req, res) => {
-    await Users.findOneAndRemove({ Username: req.params.userName })
+app.delete('/users/:Username', async (req, res) => {
+    await Users.findOneAndDelete({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
-          res.status(400).send(req.params.userName + ' was not found');
+          res.status(400).send(req.params.Username + ' was not found');
         } else {
-          res.status(200).send(req.params.userName + ' was deleted.');
+          res.status(200).send(req.params.Username + ' was deleted.');
         }
       })
       .catch((err) => {
