@@ -227,9 +227,9 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 // DELETE a user by username, allow user to deregister
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
     //CONDITION to check that username in req body matches username in res body
-    if(req.user.Username !== req.params.Username){
-        return res.status(400).send('Permission denied');
-    }
+    //if(req.user.Username !== req.params.Username){
+      //  return res.status(400).send('Permission denied');
+    //}
     //CONDITION ends
     await Users.findOneAndDelete({ Username: req.params.Username })
       .then((user) => {
