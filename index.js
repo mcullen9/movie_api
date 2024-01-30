@@ -20,6 +20,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 // setup the logger 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 // enable morgan logging to ‘log.txt’ 
