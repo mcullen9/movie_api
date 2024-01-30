@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let auth = require('./auth')(app);
+let auth = require('./auth')(app); //placed AFTER bodyParser middleware
 const passport = require('passport');
 require('./passport');
 
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 
 // Return JSON object when at /movies
 // READ
-app.get('/movies', async (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false}), async (req, res) => {
     await Movies.find()
         .then((movies) => {
         res.status(201).json(movies);
