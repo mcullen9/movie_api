@@ -1,42 +1,57 @@
 const express = require('express'),
+    morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    uuid = require ('uuid');
-
-const morgan = require('morgan'),
+    uuid = require ('uuid'),
     fs = require('fs'),
-    path = require('path');
-
-const mongoose = require('mongoose');
-const Models = require('./models.js');
-
-const Movies = Models.Movie;
-const Users = Models.User;
-//const Genres = Models.Genre;
-//const Directors = Models.Director;
-
-mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
-   
+    path = require('path'),
+    mongoose = require('mongoose'),
+    cors = require('cors'); //change semi-colon into comma after inputting validation line below
+// { check, validationResult } = require('express-validator');
 const app = express();
-app.use(bodyParser.json());
+
+// CORS
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com']; //include any domains to be granted access
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ 
+    // If a specific origin isn’t found on the list of allowed origins
+      let message = 'The CORS policy for this application doesn\’t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+app.use(bodyParser.json()); // any time using req.body, data will be expected to be in JSON format
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Import auth.js
 let auth = require('./auth')(app); //placed AFTER bodyParser middleware
 
-//Import passport.js
+//Import passport and passport.js
 const passport = require('passport');
 require('./passport');
 
+
+// log all requests
+// app.use(morgan('common'));
 // setup the logger 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 // enable morgan logging to ‘log.txt’ 
 app.use(morgan('combined', {stream: accessLogStream}));
 
-// setup app routing
-app.use(express.static('public'));
+
+// Require Mongoose models from models.js
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
+   
 
 
-// Default text response when at /
+// READ default text at index page
 app.get('/', (req, res) => {
     res.send('Welcome to myFlix app!');
    });
@@ -237,14 +252,16 @@ app.get('/documentation.html', (req,res) => {
   res.sendFile('public/documentation.html', {root: __dirname});
 });
 
-//Error handling middleware
+//App routing setup
+app.use(express.static('public'));
+
+//Error handling 
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
   
-// listen for requests
-
+//Listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
 });
