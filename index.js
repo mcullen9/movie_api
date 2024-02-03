@@ -5,8 +5,8 @@ const express = require('express'),
     fs = require('fs'),
     path = require('path'),
     mongoose = require('mongoose'),
-    cors = require('cors'); //change semi-colon into comma after inputting validation line below
-// { check, validationResult } = require('express-validator');
+    cors = require('cors'); 
+const { check, validationResult } = require('express-validator');
 const app = express();
 
 //CORS
@@ -129,7 +129,24 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
     Email: String,
     Birthday: Date
     }*/
-app.post('/users', async (req, res) => {
+app.post('/users',   
+    // Validation logic here for request
+    //you can either use a chain of methods like .not().isEmpty()
+    //which means "opposite of isEmpty" in plain english "is not empty"
+    //or use .isLength({min: 5}) which means
+    //minimum value of 5 characters are only allowed
+    [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+    ], async (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     let hashedPassword = Users.hashedPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
       .then((user) => {
