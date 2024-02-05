@@ -10,7 +10,7 @@ const { check, validationResult } = require('express-validator');
 const app = express();
 
 //CORS
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:27017' 'http://testsite.com', 'https://myfaveflix.onrender.com']; //include any domains to be granted access
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:27017', 'http://testsite.com', 'https://myfaveflix.onrender.com']; //include any domains to be granted access
 
 app.use(cors({
   origin: (origin, callback) => {
