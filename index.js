@@ -5,11 +5,12 @@ const express = require('express'),
     fs = require('fs'),
     path = require('path'),
     mongoose = require('mongoose'),
+    Models = require('./models.js'),
     cors = require('cors'); 
 const { check, validationResult } = require('express-validator');
 const app = express();
 
-//CORS
+//CORS Configuration
 let allowedOrigins = ['http://localhost:8080', 'http://localhost:27017', 'http://testsite.com', 'https://myfaveflix.onrender.com']; //include any domains to be granted access
 
 app.use(cors({
@@ -24,10 +25,11 @@ app.use(cors({
   }
 }));
 
+// Body Parser configuration
 app.use(bodyParser.json()); // any time using req.body, data will be expected to be in JSON format
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Import auth.js
+// Import auth.js
 let auth = require('./auth')(app); //placed AFTER bodyParser middleware
 
 //Import passport and passport.js
@@ -35,22 +37,22 @@ const passport = require('passport');
 require('./passport');
 
 
-//log all requests
+// Logger configuration
 // app.use(morgan('common'));
-//setup the logger 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
-//enable morgan logging to ‘log.txt’ 
-app.use(morgan('combined', {stream: accessLogStream}));
+app.use(morgan('combined', {stream: accessLogStream})); //enable morgan logging to ‘log.txt’ 
 
 
-//Require Mongoose models from models.js
-const Models = require('./models.js');
+// Models
 const Movies = Models.Movie;
 const Users = Models.User;
-//mongoose.connect('mongodb://127.0.0.1:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
-mongoose.connect( 'mongodb+srv://process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true }); 
-  
 
+// MongoDB Connection via Mongoose
+//mongoose.connect('mongodb://127.0.0.1:27017/mfDB', { useNewUrlParser: true, useUnifiedTopology: true }); 
+console.log('Connection URI:', process.env.CONNECTION_URI);
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true }); 
+  
+// REST API Endpoints
 
 //READ default text at index page
 app.get('/', (req, res) => {
@@ -284,21 +286,22 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
       });
   });
 
+// Documentation route
 app.get('/documentation.html', (req,res) => {
   res.sendFile('public/documentation.html', {root: __dirname});
 });
 
-//App routing setup
+// Static files configuration
 app.use(express.static('public'));
 
-//Error handling 
+//Error Handling 
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
   
-//Listen for requests
+// Server Listening
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
  console.log('Listening on Port ' + port);
 });
