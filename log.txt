@@ -227,3 +227,8 @@
 127.0.0.1 - - [03/Feb/2024:11:57:10 +0000] "GET /movies HTTP/1.1" 401 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 127.0.0.1 - - [03/Feb/2024:11:57:18 +0000] "GET /users HTTP/1.1" 201 534 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 127.0.0.1 - - [05/Feb/2024:12:13:41 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+127.0.0.1 - - [09/Feb/2024:04:02:01 +0000] "GET /documentation.html HTTP/1.1" 200 8023 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+127.0.0.1 - - [09/Feb/2024:04:02:03 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/documentation.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+127.0.0.1 - - [09/Feb/2024:04:04:16 +0000] "GET /movies HTTP/1.1" 401 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+127.0.0.1 - - [09/Feb/2024:04:04:25 +0000] "GET /login HTTP/1.1" 404 144 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+127.0.0.1 - - [09/Feb/2024:04:04:31 +0000] "GET /movies HTTP/1.1" 401 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
