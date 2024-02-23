@@ -18,6 +18,7 @@ let allowedOrigins = [
   "http://localhost:27017",
   "http://testsite.com",
   "https://myfaveflix.onrender.com",
+  "http://localhost:1234",
 ]; //include any domains to be granted access
 
 app.use(
