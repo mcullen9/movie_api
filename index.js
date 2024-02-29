@@ -68,7 +68,6 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 
 // REST API Endpoints
-
 //READ default text at index page
 app.get("/", (req, res) => {
   res.send("Welcome to myFaveFlix app!");
