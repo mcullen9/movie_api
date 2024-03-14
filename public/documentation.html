@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Documentation</title>
     <style>
       * {
         margin: 2rem;
       }
-      table, th, td {
+      table,
+      th,
+      td {
         border: 1px solid;
         text-align: center;
         font-family: sans-serif;
@@ -17,8 +19,11 @@
   </head>
   <body>
     <h1>Movie API</h1>
-    <p>This web application provides users with access to information about different movies, directors, and genres.<br>
-     The Movie API retrieves and enables access to this data so that users can create a profile and save data about their favorite movies.  
+    <p>
+      This web application provides users with access to information about
+      different movies, directors, and genres.<br />
+      The Movie API retrieves and enables access to this data so that users can
+      create a profile and save data about their favorite movies.
     </p>
     <table>
       <thead>
@@ -43,23 +48,27 @@
           <td>/movies/[Title]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a single movie, containing title, description, genre, director, image URL, and whether it's featured or not. Example:
+          <td>
+            A JSON object holding data about a single movie, containing title,
+            description, genre, director, image URL, and whether it's featured
+            or not. Example:
             <code>
-              {
-                "Title":"Bridesmaids",
-                "Description":"Competition between the maid of honor and a bridesmaid, over who is the bride's best friend, threatens to upend the life of an out-of-work pastry chef. (imdb.com)",
-                "Genre": {
-                    "Name":"Comedy",
-                    "Description":"A comedy film is a category of film that emphasizes humor. These films are designed to amuse audiences and make them laugh. Films in this genre typically have a happy ending, with dark comedy being an exception to this rule."
-                 },
-                "Director": {
-                    "Name":"Paul Feig",
-                    "Bio":"Paul Feig is an American film director and writer who is known for creating Freaks and Geeks and directing Bridesmaids, The Heat, Spy and A Simple Favor. He is known for directing films starring frequent collaborator Melissa McCarthy. He also directed the highly controversial 2016 reboot of Ghostbusters. He also directed episodes of The Office. (imdb.com)"
-                },
-                "Actors": [],
-                "ImageURL":"https://picfiles.alphacoders.com/774/thumb-1920-77421.jpg",
-                "Featured": true
-              }
+              { "Title":"Bridesmaids", "Description":"Competition between the
+              maid of honor and a bridesmaid, over who is the bride's best
+              friend, threatens to upend the life of an out-of-work pastry chef.
+              (imdb.com)", "Genre": { "Name":"Comedy", "Description":"A comedy
+              film is a category of film that emphasizes humor. These films are
+              designed to amuse audiences and make them laugh. Films in this
+              genre typically have a happy ending, with dark comedy being an
+              exception to this rule." }, "Director": { "Name":"Paul Feig",
+              "Bio":"Paul Feig is an American film director and writer who is
+              known for creating Freaks and Geeks and directing Bridesmaids, The
+              Heat, Spy and A Simple Favor. He is known for directing films
+              starring frequent collaborator Melissa McCarthy. He also directed
+              the highly controversial 2016 reboot of Ghostbusters. He also
+              directed episodes of The Office. (imdb.com)" }, "Actors": [],
+              "ImageURL":"https://picfiles.alphacoders.com/774/thumb-1920-77421.jpg",
+              "Featured": true }
             </code>
           </td>
         </tr>
@@ -68,12 +77,15 @@
           <td>/movies/genres/[genreName]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a genre containing title and description. Example:
+          <td>
+            A JSON object holding data about a genre containing title and
+            description. Example:
             <code>
-              {
-                "Name": "Comedy",
-                "Description": "A comedy film is a category of film that emphasizes humor. These films are designed to amuse audiences and make them laugh. Films in this genre typically have a happy ending, with dark comedy being an exception to this rule."
-            }
+              { "Name": "Comedy", "Description": "A comedy film is a category of
+              film that emphasizes humor. These films are designed to amuse
+              audiences and make them laugh. Films in this genre typically have
+              a happy ending, with dark comedy being an exception to this rule."
+              }
             </code>
           </td>
         </tr>
@@ -82,13 +94,15 @@
           <td>/movies/directors/[directorName]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a director containing director's name, bio, and birth year. Example:
+          <td>
+            A JSON object holding data about a director containing director's
+            name, bio, and birth year. Example:
             <code>
-              {
-                "Name": "Greg Mottola",
-                "Bio": "Greg Mottola was born on 11 July 1964 in Dix Hills, Long Island, New York, USA. He is a producer and director, known for Adventureland (2009), The Daytrippers (1996) and Superbad (2007). He is married to Sarah Allentuch. They have three children. (imdb.com)",
-                "BirthYear": 1964
-            }
+              { "Name": "Greg Mottola", "Bio": "Greg Mottola was born on 11 July
+              1964 in Dix Hills, Long Island, New York, USA. He is a producer
+              and director, known for Adventureland (2009), The Daytrippers
+              (1996) and Superbad (2007). He is married to Sarah Allentuch. They
+              have three children. (imdb.com)", "BirthYear": 1964 }
             </code>
           </td>
         </tr>
@@ -96,29 +110,20 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td>POST</td>
-          <td>A JSON object holding data about the user to add, structured like:
+          <td>
+            A JSON object holding data about the user to add, structured like:
             <code>
-              {
-                Username: String,
-                Password: String,
-                Email: String,
-                Birthday: Date,
-                FavoriteMovies: []
-            }
+              { Username: String, Password: String, Email: String, Birthday:
+              Date, FavoriteMovies: [] }
             </code>
           </td>
-          <td>A JSON object holding data about the user that was added, as well as an auto-generated id. Example:
+          <td>
+            A JSON object holding data about the user that was added, as well as
+            an auto-generated id. Example:
             <code>
-              {
-              "_id": "ae7c77d6-ae01-498b-9603-11bf345192ce",
-              "Username": "mary123",
-              "Password": "1234",
-              "Email": "mary@gmail.com",
-              "Birthday": "1/2/2003",
-              "FavoriteMovies": [
-                "Bridesmaids"
-              ]
-            }
+              { "_id": "ae7c77d6-ae01-498b-9603-11bf345192ce", "Username":
+              "mary123", "Password": "1234", "Email": "mary@gmail.com",
+              "Birthday": "1/2/2003", "FavoriteMovies": [ "Bridesmaids" ] }
             </code>
           </td>
         </tr>
@@ -126,61 +131,55 @@
           <td>Allow users to update their user information</td>
           <td>/users/[Username]</td>
           <td>PUT</td>
-          <td>A JSON object data about the user which needs to be updated, structured like:
+          <td>
+            A JSON object data about the user which needs to be updated,
+            structured like:
             <code>
-              {
-                Username: "testuser",
-                Password: "test123",
-                Email: "test@example.com",
-                Birthday: Date,
-                FavoriteMovies: []
-            }
+              { Username: "testuser", Password: "test123", Email:
+              "test@example.com", Birthday: Date, FavoriteMovies: [] }
             </code>
           </td>
-          <td>A JSON object containing a user's id and updated information or a text-based message denying that information was updated. Example:
-            {
-              "_id": 2,
-              "Username": "catlover",
-              "Password": "catsrule",
-              "Email": "cats@notthemusical.com",
-              "Birthday": 01/02/2021,
-              "FavoriteMovies": [
-                "Garfield: The Movie"
-              ]
-          }
+          <td>
+            A JSON object containing a user's id and updated information or a
+            text-based message denying that information was updated. Example: {
+            "_id": 2, "Username": "catlover", "Password": "catsrule", "Email":
+            "cats@notthemusical.com", "Birthday": 01/02/2021, "FavoriteMovies":
+            [ "Garfield: The Movie" ] }
           </td>
         </tr>
         <tr>
-          <td>Allow existing users to add a movie to their list of favorites</td>
-          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>
+            Allow existing users to add a movie to their list of favorites
+          </td>
+          <td>/users/[Username]/movies/[Title]</td>
           <td>POST</td>
-          <td>A JSON object holding data about updated user information. Example:
+          <td>
+            A JSON object holding data about updated user information. Example:
             <code>
-              {
-                "Username":"Jack123",
-                "FavoriteMovies":[
-                  "Superbad"                
-                ]
-            }
+              { "Username":"Jack123", "FavoriteMovies":[ "Superbad" ] }
             </code>
           </td>
-          <td>A text-based message stating that the movie has been added to user's Favorite Movies. Example: "Superbad" has been added to user's Favorite Movies.</td>
+          <td>
+            A text-based message stating that the movie has been added to user's
+            Favorite Movies. Example: "Superbad" has been added to user's
+            Favorite Movies.
+          </td>
         </tr>
         <tr>
-          <td>Allow existing users to remove a movie from their list of favorites</td>
-          <td>/users/[Username]/movies/[MovieID]</td>
-          <td>DELETE</td>
-          <td>A JSON object holding data about user's information to be deleted. Example:
-            <code>
-              {
-                "Username":"Susan123",
-                "FavoriteMovies":[
-                  "Up"
-                ]
-            }
-            </code>
+          <td>
+            Allow existing users to remove a movie from their list of favorites
           </td>
-          <td>A text-based message stating that the movie has been deleted from the user's Favorite Movies. Example: "Up" has been removed from user's Favorite Movies.
+          <td>/users/[Username]/movies/[Title]</td>
+          <td>DELETE</td>
+          <td>
+            A JSON object holding data about user's information to be deleted.
+            Example:
+            <code> { "Username":"Susan123", "FavoriteMovies":[ "Up" ] } </code>
+          </td>
+          <td>
+            A text-based message stating that the movie has been deleted from
+            the user's Favorite Movies. Example: "Up" has been removed from
+            user's Favorite Movies.
           </td>
         </tr>
         <tr>
@@ -188,12 +187,13 @@
           <td>/users/[Username]</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A text-based message stating that the user has been deleted. Example: User 2 has been deleted.
+          <td>
+            A text-based message stating that the user has been deleted.
+            Example: User 2 has been deleted.
           </td>
         </tr>
       </tbody>
     </table>
-    
   </body>
- <script type="module/js" src="/index.js"></script> 
+  <script type="module/js" src="/index.js"></script>
 </html>
