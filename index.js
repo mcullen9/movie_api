@@ -290,7 +290,7 @@ app.put(
 //CREATE new favorite movie
 // Add a movie to a user's list of favorites
 app.post(
-  "/users/:Username/movies/:Title", //MovieID or Title
+  "/users/:Username/movies/:movieID", //MovieID or Title
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Users.findOneAndUpdate(
@@ -311,7 +311,7 @@ app.post(
 //DELETE movie from FavoriteMovies
 // Remove a movie from a user's list of favorite movies
 app.delete(
-  "/users/:Username/movies/:Title",
+  "/users/:Username/movies/:movieID",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Users.findOneAndDelete(
