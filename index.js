@@ -295,7 +295,7 @@ app.post(
   async (req, res) => {
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
-      { $push: { FavoriteMovies: req.params.Title } }, //should this say Title or MovieID?
+      { $push: { FavoriteMovies: req.params.MovieID } }, //should this say Title or MovieID?
       { new: true }
     )
       .then((updatedUser) => {
@@ -317,7 +317,7 @@ app.delete(
     await Users.findOneAndDelete(
       { Username: req.params.Username },
       {
-        $pull: { FavoriteMovies: req.params.Title }, //MovieID or Title?
+        $pull: { FavoriteMovies: req.params.MovieID }, //MovieID or Title?
       },
       { new: true }
     )
