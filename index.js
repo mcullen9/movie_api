@@ -290,12 +290,12 @@ app.put(
 //CREATE new favorite movie
 // Add a movie to a user's list of favorites
 app.post(
-  "/users/:Username/movies/:Title", //MovieID or Title
+  "/users/:Username/movies/:MovieID", //MovieID or Title
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
-      { $push: { FavoriteMovies: req.params.Title } }, //should this say Title or MovieID?
+      { $push: { FavoriteMovies: req.params.MovieID } }, //should this say Title or MovieID?
       { new: true }
     )
       .then((updatedUser) => {
@@ -311,13 +311,13 @@ app.post(
 //DELETE movie from FavoriteMovies
 // Remove a movie from a user's list of favorite movies
 app.delete(
-  "/users/:Username/movies/:Title",
+  "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Users.findOneAndDelete(
       { Username: req.params.Username },
       {
-        $pull: { FavoriteMovies: req.params.Title }, //changed from Title
+        $pull: { FavoriteMovies: req.params.MovieID }, //changed from Title
       },
       { new: true }
     )
