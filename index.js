@@ -256,25 +256,25 @@ app.put(
   ],
   async (req, res) => {
     //CONDITION TO CHECK ADDED HERE
-    /* if(req.user.Username !== req.params.Username){
-        return res.status(400).send('Permission denied');
-    }    */
-
+    if (req.user.Username !== req.params.Username) {
+      return res.status(400).send("Permission denied");
+    }
+    const updatedUser = {
+      Username: req.body.Username,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday,
+    };
+    if (req.body.Password) {
+      updatedUser.Password = Users.hashPassword(req.body.Password);
+    }
     //Check the validation object for errors
-    let errors = validationResult(req);
+    /* let errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
-    }
+    } */
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
-      {
-        $set: {
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
-        },
-      },
+      { $set: updatedUser },
       { new: true }
     ) //This line makes sure that the updated document is returned
       .then((updatedUser) => {
@@ -290,12 +290,12 @@ app.put(
 //CREATE new favorite movie
 // Add a movie to a user's list of favorites
 app.post(
-  "/users/:Username/movies/:MovieID", //MovieID or Title
+  "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
-      { $push: { FavoriteMovies: req.params.MovieID } }, //should this say Title or MovieID?
+      { $push: { FavoriteMovies: req.params.MovieID } },
       { new: true }
     )
       .then((updatedUser) => {
