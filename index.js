@@ -19,7 +19,8 @@ let allowedOrigins = [
   "http://testsite.com",
   "https://myfaveflix.onrender.com",
   "http://localhost:1234",
-]; //include any domains to be granted access
+  "https://myfaveflix.netlify.app/",
+];
 
 app.use(
   cors({
